@@ -429,5 +429,5 @@ resource "aws_route53_record" "dns_app" {
 }
 
 output "ssh_connect_app" {
-  value = "ssh -i ec2_instance_key_pair.pem ubuntu@${aws_instance.app_instance.public_ip}"
+  value = "ssh -i ${local_file.ec2_instance_key_pair.filename} ubuntu@${aws_instance.app_instance.public_ip}"
 }

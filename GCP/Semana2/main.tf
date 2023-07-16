@@ -158,13 +158,13 @@ resource "google_compute_instance" "rafita_app_instance" {
 }
 
 output "key_copy" {
-  value = "scp -i instance_key_pair.pem instance_key_pair.pem ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}:/home/ubuntu"
+  value = "scp -i ${local_file.instance_key_pair.filename} ${local_file.instance_key_pair.filename} ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}:/home/ubuntu"
 }
 
 output "ssh_connect_app" {
-  value = "ssh -i instance_key_pair.pem ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}"
+  value = "ssh -i ${local_file.instance_key_pair.filename} ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}"
 }
 
 output "ssh_connect_db" {
-  value = "ssh -i instance_key_pair.pem ubuntu@${google_compute_instance.rafita_db_instance.network_interface.0.access_config.0.nat_ip}"
+  value = "ssh -i ${local_file.instance_key_pair.filename} ubuntu@${google_compute_instance.rafita_db_instance.network_interface.0.access_config.0.nat_ip}"
 }

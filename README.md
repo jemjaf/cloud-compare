@@ -35,29 +35,25 @@
     -> zona colocar 'us-east-1' y format 'json'
 
 # Set up GCP
-
-## Primero debes tener la gcloud CLI de GCP instalada (Se sugiere hacerlo en WSL):
- - Seguir los pasos de la siguiente docu
- - https://cloud.google.com/sdk/docs/install?hl=es-419#linux
-
-## Verificar inicializando:
- - gcloud init
-    -> El link que provee llevarlo al navegador donde estés logueado con tu cuenta de google para realziar el despliegue
-
 ## Luego configurar las credenciales:
- - Actualizar el contenido del archivo 'SA_credentials.json' con el nuevo Service Account*
- - Actualizar el valor del 'project' en el archivo providers.tf con el id del nuevo proyecto*
+ - Crear un archivo llamado 'SA_credentials.json' con el contenido del Service Account*
 
+# Set up Alibaba Cloud
+ - Exportar variables de entorno
+    export ALICLOUD_ACCESS_KEY="<ALICLOUD_ACCESS_KEY>"
+    export ALICLOUD_SECRET_KEY="<ALICLOUD_SECRET_KEY>"
 # Listo, estás listo para desplegar la infraestructura
 
 # Despliegue de Infraestructura
+Ubicarse en la carpeta donde estén los recurso .tf que se deseen desplegar
 En la carpeta de cada sesión deben ejecutar la siguiente lista de comandos:
  - terraform version
  - terraform init
+ - terraform workspace new production
  - terraform fmt
  - terraform validate
  - terraform plan
- - terraform apply --auto-aprove
+ - terraform apply --auto-approve
  - terraform destroy --auto-aprove
 
 #### NOTA: Solo pushear los archivos .tf y .sh (Igualmente todo está validado en el .gitignore)

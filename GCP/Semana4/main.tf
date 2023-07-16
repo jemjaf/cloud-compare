@@ -26,7 +26,7 @@ resource "google_compute_firewall" "app_fw_ingress" {
     ports    = ["8000", "22"]
   }
 
-  source_ranges = ["38.25.23.185"]
+  source_ranges = ["0.0.0.0/0"]
   source_tags   = ["app"]
 }
 
@@ -148,13 +148,13 @@ resource "google_bigtable_table" "table" {
 
 
 output "key_copy" {
-  value = "scp -i instance_key_pair.pem instance_key_pair.pem ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}:/home/ubuntu"
+  value = "scp -i ${local_file.instance_key_pair.filename} ${local_file.instance_key_pair.filename} ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}:/home/ubuntu"
 }
 
 output "ssh_connect_app" {
-  value = "ssh -i instance_key_pair.pem ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}"
+  value = "ssh -i ${local_file.instance_key_pair.filename} ubuntu@${google_compute_instance.rafita_app_instance.network_interface.0.access_config.0.nat_ip}"
 }
 
 output "ssh_connect_db" {
-  value = "ssh -i instance_key_pair.pem ubuntu@${google_compute_instance.rafita_db_instance.network_interface.0.network_ip}"
+  value = "ssh -i ${local_file.instance_key_pair.filename} ubuntu@${google_compute_instance.rafita_db_instance.network_interface.0.network_ip}"
 }

@@ -8,8 +8,8 @@ terraform {
 }
 
 provider "google" {
-  project     = "playground-s-11-e521c29f"
+  project     = local.service_account.project_id
   region      = "us-east1"
-  zone        = "us-east1-b"
+  zone        = local.zone
   credentials = "./SA_credentials.json"
 }

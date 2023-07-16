@@ -207,5 +207,13 @@ resource "aws_instance" "app_instance" {
 }
 
 output "key_copy" {
-  value = "scp -i ec2_instance_key_pair.pem ec2_instance_key_pair.pem ubuntu@${aws_instance.app_instance.public_ip}:/home/ubuntu"
+  value = "scp -i ${local_file.ec2_instance_key_pair.filename} ${local_file.ec2_instance_key_pair.filename} ubuntu@${aws_instance.app_instance.public_ip}:/home/ubuntu"
+}
+
+output "ssh_connect_app" {
+  value = "ssh -i ${local_file.ec2_instance_key_pair.filename} ubuntu@${aws_instance.app_instance.public_ip}"
+}
+
+output "ssh_connect_db" {
+  value = "ssh -i ${local_file.ec2_instance_key_pair.filename} ubuntu@${aws_instance.database_instance.private_ip}"
 }

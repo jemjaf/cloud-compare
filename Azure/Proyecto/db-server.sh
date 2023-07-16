@@ -21,5 +21,10 @@ sudo sed -i "s/::1\/128/::\/0/" /etc/postgresql/*/main/pg_hba.conf
 sudo systemctl restart postgresql
 
 # sudo systemctl status 'postgresql*'
-# Establecer la contraseña del usuario "postgres"
-# sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'P@ssw0rd1234!';"
+
+# sudo -u postgres psql
+# \l
+# \c rafita
+# \dt
+# SELECT * FROM "ComprasApp_proveedor";
+# \q

@@ -27,3 +27,5 @@ terraform.rc
 
 # Ignore theme
 .vscode/
+
+*.pem

@@ -1,73 +1,35 @@
-#We strongly recommend using the required_providers block to set the
-#Azure Provider source and version being used
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=3.51.0"
-    }
-  }
-}
-
-#Configure the Microsoft Azure Provider
-provider "azurerm" {
-  features {}
-  skip_provider_registration = true
-}
-
-#Variables
-variable "resource-group-name" {
-  description = "Resource group name"
-  type        = string
-  default     = "1-dd19ff41-playground-sandbox"
-}
-
-variable "location" {
-  description = "Location of the resource"
-  type        = string
-  default     = "eastus"
-}
-
 #Virtual Network 1
 resource "azurerm_virtual_network" "virtualnetwork-1" {
-  name                = "virtualnetwork-1"
+  name                = "virtualnetwork-1-${local.environment}"
   location            = var.location
   resource_group_name = var.resource-group-name
   address_space       = ["10.0.0.0/16"]
   tags = {
-    environment = "Web-Server"
+    environment = local.environment
   }
 }
 
 resource "azurerm_subnet" "vn1_subnet1" {
-  name                 = "vn1_subnet1"
+  name                 = "vn1_subnet1-${local.environment}"
   resource_group_name  = var.resource-group-name
   virtual_network_name = azurerm_virtual_network.virtualnetwork-1.name
   address_prefixes     = ["10.0.0.0/24"]
 }
 
-resource "azurerm_subnet" "vn1_subnet2" {
-  name                 = "vn1_subnet2"
-  resource_group_name  = var.resource-group-name
-  virtual_network_name = azurerm_virtual_network.virtualnetwork-1.name
-  address_prefixes     = ["10.0.1.0/24"]
-}
-
-
 resource "azurerm_public_ip" "public_ip_web" {
-  name                = "public_ip_web"
+  name                = "public_ip_web-${local.environment}"
   resource_group_name = var.resource-group-name
   location            = var.location
   allocation_method   = "Dynamic"
 }
 
 resource "azurerm_network_interface" "network-interface-web" {
-  name                = "network-interface-web"
+  name                = "network-interface-web-${local.environment}"
   location            = var.location
   resource_group_name = var.resource-group-name
 
   ip_configuration {
-    name                          = "web-internal"
+    name                          = "web-internal-${local.environment}"
     subnet_id                     = azurerm_subnet.vn1_subnet1.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.public_ip_web.id
@@ -75,19 +37,19 @@ resource "azurerm_network_interface" "network-interface-web" {
 }
 
 resource "azurerm_network_interface" "network-interface-db" {
-  name                = "network-interface-db"
+  name                = "network-interface-db-${local.environment}"
   location            = var.location
   resource_group_name = var.resource-group-name
 
   ip_configuration {
-    name                          = "db-internal"
+    name                          = "db-internal-${local.environment}"
     subnet_id                     = azurerm_subnet.vn1_subnet1.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
 resource "azurerm_network_security_group" "sg-webserver" {
-  name                = "sg-webserver"
+  name                = "sg-webserver-${local.environment}"
   location            = var.location
   resource_group_name = var.resource-group-name
 
@@ -129,7 +91,7 @@ resource "azurerm_network_security_group" "sg-webserver" {
 }
 
 resource "azurerm_network_security_group" "sg-database" {
-  name                = "sg-database"
+  name                = "sg-database-${local.environment}"
   location            = var.location
   resource_group_name = var.resource-group-name
 
@@ -181,7 +143,7 @@ resource "azurerm_network_interface_security_group_association" "database_networ
 }
 
 resource "azurerm_linux_virtual_machine" "virtual-machine-web" {
-  name                            = "virtual-machine-web"
+  name                            = "virtual-machine-web-${local.environment}"
   resource_group_name             = var.resource-group-name
   location                        = var.location
   size                            = "Standard_B1s"
@@ -215,7 +177,7 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-web" {
 }
 
 resource "azurerm_linux_virtual_machine" "virtual-machine-db" {
-  name                            = "virtual-machine-db"
+  name                            = "virtual-machine-db-${local.environment}"
   resource_group_name             = var.resource-group-name
   location                        = var.location
   size                            = "Standard_B1s"
