@@ -47,6 +47,17 @@ resource "alicloud_security_group_rule" "app_sgr_admin_app" {
   cidr_ip           = "0.0.0.0/0"
 }
 
+resource "alicloud_security_group_rule" "app_sgr_users_app" {
+  description       = "Security group to expose the application to the internet for HTTPS"
+  type              = "ingress"
+  ip_protocol       = "tcp"
+  nic_type          = "intranet"
+  policy            = "accept"
+  port_range        = "443/443"
+  security_group_id = alicloud_security_group.app_sg.id
+  cidr_ip           = "0.0.0.0/0"
+}
+
 #########################
 # Database Security Group
 #########################
@@ -142,13 +153,6 @@ resource "alicloud_instance" "app_instance" {
   vswitch_id        = alicloud_vswitch.subnet.id
   security_groups   = [alicloud_security_group.app_sg.id]
   user_data         = base64encode(templatefile("./web-server.sh", { private_ip = alicloud_instance.database_instance.private_ip }))
-
-  data_disks {
-    name        = "app-disk2-${local.environment}"
-    size        = 20
-    category    = "cloud_efficiency"
-    description = "app-disk2-${local.environment}"
-  }
 
   instance_name              = "app-ec2-instance-${local.environment}"
   instance_charge_type       = "PostPaid"
