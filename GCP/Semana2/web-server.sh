@@ -4,7 +4,7 @@ sudo apt upgrade -y
 
 #Clonar el repositorio
 cd /opt
-sudo git clone https://github.com/jeaneliasmanuel/rafita.git
+sudo git clone https://github.com/jemjaf/rafita.git
 
 #Error
 cd /opt/rafita

@@ -3,7 +3,7 @@
 sudo apt update
 sudo apt upgrade -y
 cd
-git clone https://github.com/jeaneliasmanuel/rafita.git
+git clone https://github.com/jemjaf/rafita.git
 sudo apt install wget build-essential libncursesw5-dev libssl-dev \
 libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev -y
 # sudo apt install software-properties-common -y
