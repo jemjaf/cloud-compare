@@ -259,12 +259,3 @@ output "db_public_ip_address" {
 output "db_public_ip_addresses" {
   value = azurerm_linux_virtual_machine.virtual-machine-db.public_ip_addresses
 }
-
-# sudo apt update && sudo apt -y install apache2
-# sudo systemctl status apache2
-
-# sudo apt install mysql-server -y
-# sudo service mysql status
-# mysql -u root -p
-# show databases;
-# show tables;
