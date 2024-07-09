@@ -44,14 +44,3 @@ python3 manage.py migrate
 python3 manage.py createsu
 python3 manage.py shell < comandos.py
 python3 manage.py runserver 0.0.0.0:8000
-
-# Usuarios
-# cuentaCaja
-# cuentaCocina
-# cuentaAdmin
-# cuentaMozo
-# cuentaRepartidor
-# Contraseña: GRUPOis1
-
-# adminuser
-# aB1234

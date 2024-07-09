@@ -46,11 +46,3 @@ python3 manage.py shell < comandos.py
 echo "Test1" > test5.text
 python3 manage.py runserver 0.0.0.0:8000
 echo "Test1" > test6.text
-
-# Usuarios
-# cuentaCaja
-# cuentaCocina
-# cuentaAdmin
-# cuentaMozo
-# cuentaRepartidor
-# Contraseña: GRUPOis1

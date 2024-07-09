@@ -19,12 +19,3 @@ sudo sed -i "s/::1\/128/::\/0/" /etc/postgresql/*/main/pg_hba.conf
 
 # Reiniciar el servicio PostgreSQL
 sudo systemctl restart postgresql
-
-# sudo systemctl status 'postgresql*'
-
-# sudo -u postgres psql
-# \l
-# \c rafita
-# \dt
-# SELECT * FROM "ComprasApp_proveedor";
-# \q
